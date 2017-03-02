@@ -7,20 +7,6 @@
 #include <unordered_map>
 using namespace std;
 
-long int fact(int x)
-{
-  int i, f=1; for(i=2; i<=x; i++) 
-  {
-    f=f*i; 
-  } 
-  return f;
-}
-
-long int ncr(int n, int r)
-{
-  return (long int)(fact(n)/(fact(n-r)*fact(r)));
-}
-
 std::vector<std::string> GetStrings(const std::string& s)
 {
   int n = s.size();    
@@ -53,18 +39,11 @@ long int AnagramPairs(const std::vector<std::string>& params)
     }
     else
     {
+      sum += valuesMap[a];
       valuesMap[a] = valuesMap[a] + 1;
     }
   }
   
-  for(auto& it : valuesMap)
-  {
-    //std::cout << it.first << " " << it.second << std::endl;
-    if (it.second > 1)
-    {
-      sum += ncr(it.second, 2);        
-    }
-  }
   return sum;
 }
 

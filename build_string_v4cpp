@@ -19,38 +19,9 @@ int A;
 int B;
 std::string s;
 
-std::map<long, int> grid;
 const int size = 30000;
 int result[size + 1];
 int value[size+1];
-
-int GetGrid(int i, int j)
-{
-    long key = i * 100000 + j;
-    if(grid.find(key) == std::end(grid))
-    {
-        return 0;        
-    }
-    return grid[key];
-}
-
-void SetGrid(int i, int j, int v)
-{
-    long key = i * 100000 + j;
-    grid[key] = v;
-}
-
-void PrintGrid()
-{
-    for(int i=1; i<=N; ++i)
-    {
-        for (int j=1; j<=N; ++j)
-        {
-            std::cout << GetGrid(i,j) << " ";
-        }
-        std::cout << std::endl;
-    }
-}
 
 int Solve(int p)
 {

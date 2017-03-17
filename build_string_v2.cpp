@@ -8,6 +8,7 @@
 #include <string.h>
 #include <unordered_map>
 #include <map>
+#include <set>
 
 
 using namespace std;
@@ -22,18 +23,16 @@ std::map<long, int> grid;
 const int size = 30000;
 int result[size + 1];
 
+std::map<int, std::set<int>> grid2;
+
 int GetGrid(int i, int j)
 {
     long key = i * 100000 + j;
-    auto it = grid.find(key);
-    if (it != std::end(grid))
+    if(grid.find(key) == std::end(grid))
     {
-        return it->second;    
+        return 0;        
     }
-    else
-    {
-        return 0;    
-    }
+    return grid[key];
 }
 
 void SetGrid(int i, int j, int v)
@@ -58,19 +57,20 @@ int Solve(int p)
 {
     if (result[p] != 0)
     {
-        //std::cout << p << ":" << result[p] << std::endl;
+        //std::cout << p << ":cp1 " << result[p] << std::endl;
         return result[p];
     }
     
     if (p == 1)
     {
-        //std::cout << p << ":" << A << std::endl;
+        //std::cout << p << ":cp2 " << A << std::endl;
         result[p] = A;
         return A;
     }
     
     int score = Solve(p-1) + A;
     int min = score;
+    
     for(int j=1; j<p; ++j)
     {
         int v = GetGrid(p,j);
@@ -92,7 +92,7 @@ int Solve(int p)
     }
     
     result[p] = min;
-    //std::cout << p << ":" << min << std::endl;
+    //std::cout << p << ":cp0 " << min << std::endl;
     return min;    
 }
 
@@ -121,10 +121,19 @@ void BuildString()
             }
             else
             {
-                SetGrid(i,j,0);
-                SetGrid(j,i,0);
+                //SetGrid(i,j,0);
+                //SetGrid(j,i,0);
             }
         }
+    }
+    
+    //PrintGrid();
+    //std::cout << "---------" << std::endl;
+    
+    for(int i=1; i<N; ++i)
+    {
+        Solve(i);
+        //std::cout << "---------" << std::endl;
     }
     
     int min = Solve(N);

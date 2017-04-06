@@ -96,7 +96,7 @@ auto LongestCommonSuffix(const std::string& s)
                 int l = 0;
                 for(int k=0; k<n; ++k)
                 {
-                    if (i+k<n && sa[j]+k<n)
+                    if (i+k<n && sa[j]+k<i)
                     {
                         if (s[i+k] == s[sa[j]+k])
                         {

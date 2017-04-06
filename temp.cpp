@@ -179,7 +179,6 @@ void Solve()
     */
     
     len = LongestCommonSuffix(s);
-    
     /*
     std::cout << "---------------" << std::endl;
     for(int i=0; i<n; ++i)
@@ -187,6 +186,22 @@ void Solve()
         std::cout << i << ":" << len[i] << std::endl;
     }
     */
+    
+    std::vector<int> results(n);
+    results[0] = a;
+    for (int i=1; i<n; ++i)
+    {
+        int min = results[i-1] + a;
+        for (int j=0; j<len[i]; ++j)
+        {
+            min = std::min(min, results[i-1-j] + b);    
+        }
+        results[i] = min;
+    }
+    
+    std::cout << results[n-1] << std::endl;
+    
+    
     
 }
 

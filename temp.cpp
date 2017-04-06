@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <tuple>
+#include <limits> 
 
 auto SuffixArray(const std::string& s)
 {
@@ -127,7 +128,7 @@ auto LongestCommonSuffix(const std::string& s)
                 int l = 0;
                 for(int k=0; k<n; ++k)
                 {
-                    if (i+k<n && sa[j]+k<n)
+                    if (i+k<n && sa[j]+k<i)
                     {
                         if (s[i+k] == s[sa[j]+k])
                         {
@@ -161,7 +162,7 @@ void Solve()
     int n, a, b;
     std::cin >> n >> a >> b;
     std::cin >> s;
-    std::cout << n << " " << a << " " << b << " " << s << std::endl;
+    //std::cout << n << " " << a << " " << b << " " << s << std::endl;
     
     std::vector<int> sa, rank, len;
     std::tie(sa, rank) = SuffixArray(s);
@@ -179,25 +180,38 @@ void Solve()
     */
     
     len = LongestCommonSuffix(s);
+    
     /*
     std::cout << "---------------" << std::endl;
     for(int i=0; i<n; ++i)
     {
         std::cout << i << ":" << len[i] << std::endl;
     }
+    std::cout << "---------------" << std::endl;
     */
     
     std::vector<int> results(n);
+    for (int i=0; i<n; ++i)
+    {
+        results[i] = std::numeric_limits<int>::max();    
+    }
+    
     results[0] = a;
     for (int i=1; i<n; ++i)
     {
-        int min = results[i-1] + a;
-        for (int j=0; j<len[i]; ++j)
+        results[i] = std::min(results[i], results[i-1]+a);
+        for(int j=0; j<len[i]; ++j)
         {
-            min = std::min(min, results[i-1-j] + b);    
+            results[i+j] = std::min(results[i+j], results[i-1]+b);
         }
-        results[i] = min;
     }
+    
+    /*
+    for(int i=0; i<n; ++i)
+    {
+        std::cout << results[i] << std::endl;
+    }
+    */
     
     std::cout << results[n-1] << std::endl;
     

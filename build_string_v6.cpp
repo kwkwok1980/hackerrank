@@ -18,14 +18,6 @@ auto SuffixArray(const std::string& s)
     
     for(int k=1; k<n; k=k*2)
     {
-        /*
-        std::cout << "--- rank ----" << std::endl;
-        for (int i=0; i<n; ++i)
-        {
-            std::cout << i << ":" << rank[i] << std::endl;
-        }
-        */
-        
         auto func = [&](int i, int j)
         {
             auto pair1 = std::make_pair(rank[i], (i+k) < n ? rank[i+k] : -1);
@@ -34,38 +26,22 @@ auto SuffixArray(const std::string& s)
         };
         std::sort(sa.begin(), sa.end(), func);
         
-        /*
-        std::cout << "--- sa ----" << std::endl;
-        for(auto& i : sa) 
-        {
-            std::cout << i << ":";
-            for(int j=i; j<n; ++j)
-            {
-                std::cout << s[j];
-            }
-            std::cout << std::endl;
-        }
-        */
-        
         std::vector<int> dp(n);
         for (int i=0; i<n; ++i)
         {
             if (i==0)
             {
                 dp[sa[i]] = 0; 
-                //std::cout << "--- r0 ----" << sa[i] << ":" << dp[sa[i]] << std::endl;
             }
             else 
             {
                 if (func(sa[i-1], sa[i]))
                 {
                     dp[sa[i]] = dp[sa[i-1]] + 1;
-                    //std::cout << "--- r1 ----" << sa[i] << ":" << dp[sa[i]] << std::endl;
                 }
                 else
                 {
                     dp[sa[i]] = dp[sa[i-1]];
-                    //std::cout << "--- r2 ----" << sa[i] << ":" << dp[sa[i]] << std::endl;
                 }
             }
             
@@ -159,12 +135,12 @@ void Solve()
         }
         std::cout << std::endl;
     }
+    std::cout << "---------------" << std::endl;
     */
     
     len = LongestCommonSuffix(s);
     
     /*
-    std::cout << "---------------" << std::endl;
     for(int i=0; i<n; ++i)
     {
         std::cout << i << ":" << len[i] << std::endl;
@@ -188,25 +164,14 @@ void Solve()
         }
     }
     
-    
-    
-    /*
-    for(int i=0; i<n; ++i)
-    {
-        std::cout << results[i] << std::endl;
-    }
-    */
-    
-    std::cout << results[n-1] << std::endl;
-    
     /*
     for(int i=0; i<n; ++i)
     {
         std::cout << i << "\t" << s[i] << "\t" << len[i] << "\t" << results[i] << std::endl;
     }
     */
-    
-    
+
+    std::cout << results[n-1] << std::endl;
 }
 
 int main() {

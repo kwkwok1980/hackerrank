@@ -11,6 +11,27 @@ public class Solution {
         int k = scanner.nextInt();
         
         StringBuffer sb = new StringBuffer();
+        
+        s.chars().forEach(
+            (c) -> {
+                if (c >= 'A' && c <= 'Z')
+                {
+                    c = 'A' + (c-'A'+k)%26;
+                    sb.append((char)c);
+                }
+                else if (c >= 'a' && c <= 'z')
+                {
+                    c = 'a' + (c-'a'+k)%26;
+                    sb.append((char)c);
+                }
+                else
+                {
+                    sb.append((char)c);    
+                }
+            }
+        );
+        
+        /*
         for(int i=0; i<n; ++i)
         {
             int c = s.charAt(i);
@@ -29,6 +50,7 @@ public class Solution {
                 sb.append((char)c);    
             }
         }
+        */
         System.out.println(sb.toString());
     }
 }

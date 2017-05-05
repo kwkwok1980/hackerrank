@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.IntConsumer;
+
 
 public class Solution {
 
@@ -12,45 +15,21 @@ public class Solution {
         
         StringBuffer sb = new StringBuffer();
         
-        s.chars().forEach(
-            (c) -> {
-                if (c >= 'A' && c <= 'Z')
-                {
-                    c = 'A' + (c-'A'+k)%26;
-                    sb.append((char)c);
-                }
-                else if (c >= 'a' && c <= 'z')
-                {
-                    c = 'a' + (c-'a'+k)%26;
-                    sb.append((char)c);
-                }
-                else
-                {
-                    sb.append((char)c);    
-                }
-            }
-        );
-        
-        /*
-        for(int i=0; i<n; ++i)
-        {
-            int c = s.charAt(i);
-            if (c >= 'A' && c <= 'Z')
-            {
+        IntConsumer consumer = (c) -> {
+            if (c >= 'A' && c <= 'Z'){
                 c = 'A' + (c-'A'+k)%26;
                 sb.append((char)c);
             }
-            else if (c >= 'a' && c <= 'z')
-            {
+            else if (c >= 'a' && c <= 'z'){
                 c = 'a' + (c-'a'+k)%26;
                 sb.append((char)c);
             }
-            else
-            {
+            else{
                 sb.append((char)c);    
             }
-        }
-        */
+        };
+        
+        s.chars().forEach(consumer);
         System.out.println(sb.toString());
     }
 }

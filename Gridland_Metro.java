@@ -24,27 +24,27 @@ public class Solution {
         scanner.close();
         
         grid.values().stream().forEach(
-			oldRow -> {
-				List<A> newRow = new ArrayList<A>();
-				for (A oldA : oldRow)
+		oldRow -> {
+			List<A> newRow = new ArrayList<A>();
+			for (A oldA : oldRow)
+			{
+				boolean merged = false;
+				for(A newA : newRow)
 				{
-					boolean merged = false;
-					for(A newA : newRow)
+					merged = newA.merge(oldA);
+					if (merged)
 					{
-						merged = newA.merge(oldA);
-						if (merged)
-						{
-							break;
-						}
-					}
-					if (merged == false)
-					{
-						newRow.add(oldA);
+						break;
 					}
 				}
-				oldRow.clear();
-				oldRow.addAll(newRow);
+				if (merged == false)
+				{
+					newRow.add(oldA);
+				}
 			}
+			oldRow.clear();
+			oldRow.addAll(newRow);
+		}
         );
         
         int free = n*m - grid.values().stream().flatMap(r -> r.stream()).mapToInt(a->{return a.c2- a.c1 + 1;}).sum();

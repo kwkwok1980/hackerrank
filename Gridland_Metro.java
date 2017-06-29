@@ -9,7 +9,7 @@ public class Solution {
         int m = scanner.nextInt();
         int t = scanner.nextInt();
         
-        Map<Integer, List<A>> grid = new HashMap<>();
+        Map<Integer, List<A>> grid = new HashMap<>(n);
         for (int i=0; i<t; ++i){
             int r = scanner.nextInt();
             int c1 = scanner.nextInt();
@@ -19,33 +19,19 @@ public class Solution {
             a.c2 = c2;
             
             List<A> row = grid.computeIfAbsent(r, ArrayList<A>::new);
-            row.add(a);
+            boolean merged = false;
+            for(A oldA : row)
+            {
+            	merged = oldA.merge(a);
+            	if (merged) break;
+            }
+            
+            if (merged == false)
+            {
+            	row.add(a);
+            }
         }
         scanner.close();
-        
-        grid.values().stream().forEach(
-		oldRow -> {
-			List<A> newRow = new ArrayList<A>();
-			for (A oldA : oldRow)
-			{
-				boolean merged = false;
-				for(A newA : newRow)
-				{
-					merged = newA.merge(oldA);
-					if (merged)
-					{
-						break;
-					}
-				}
-				if (merged == false)
-				{
-					newRow.add(oldA);
-				}
-			}
-			oldRow.clear();
-			oldRow.addAll(newRow);
-		}
-        );
         
         int free = n*m - grid.values().stream().flatMap(r -> r.stream()).mapToInt(a->{return a.c2- a.c1 + 1;}).sum();
         System.out.println(free);

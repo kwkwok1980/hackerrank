@@ -90,7 +90,6 @@ int Fill(int n, const Step& step)
     while(!Tasks.empty())
     {
         const Task& task = Tasks.front();
-        //std::cout << "Task: " << task.x << "," << task.y << std::endl;
         Walk(n, step, Point{task.x, task.y});
         Tasks.pop_front();
     }
@@ -102,13 +101,6 @@ int main()
 {
     int n,i,j;
     std::cin >> n;
-    
-    /*
-    i=1;j=4;
-    Step step {i, j};
-    int d = Fill(n, step);
-    std::cout << i << "," << j << "," << d << std::endl;
-    */
     
     for (int i=1; i<n; ++i)
     {

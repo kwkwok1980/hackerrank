@@ -34,48 +34,41 @@ class Equal {
 	public void Solve() {
 		int nMax = Collections.max(colleagues);
 		List<Integer> values = new ArrayList<Integer>();
-		for (int i=0; i<N; ++i){
+		for (int i = 0; i < N; ++i) {
 			int nValue = nMax - colleagues.get(i);
 			values.add(nValue);
 		}
-		
-        nMax = Collections.max(values);
-        List<Integer> maxValues = new ArrayList<>();
-        maxValues.add(nMax);
-        maxValues.add(nMax+1);
-        maxValues.add(nMax+2);
-        maxValues.add(nMax+5);
-        
-        List<Integer> steps = new ArrayList<>();
-        for(int m=0; m<4; ++m){
-        	nMax = maxValues.get(m);
-        	int nStep = 0;
-    		for (int i=0; i<N; ++i){
-    			int nDiff = nMax - values.get(i);
-    			while (nDiff != 0)
-    			{
-    				if (nDiff >=5)
-    				{
-    					nDiff = nDiff -5;
-    				}
-    				else if (nDiff >=2)
-    				{
-    					nDiff = nDiff - 2;
-    				}
-    				else
-    				{
-    					nDiff = nDiff - 1;
-    				}
-    				++nStep;
-    			}
-    		}
-    		steps.add(nStep);
-        }
-		
+
+		nMax = Collections.max(values);
+		List<Integer> maxValues = new ArrayList<>();
+		maxValues.add(nMax);
+		maxValues.add(nMax + 1);
+		maxValues.add(nMax + 2);
+		maxValues.add(nMax + 5);
+
+		List<Integer> steps = new ArrayList<>();
+		for (int m = 0; m < 4; ++m) {
+			nMax = maxValues.get(m);
+			int nStep = 0;
+			for (int i = 0; i < N; ++i) {
+				int nDiff = nMax - values.get(i);
+				while (nDiff != 0) {
+					if (nDiff >= 5) {
+						nDiff = nDiff - 5;
+					} else if (nDiff >= 2) {
+						nDiff = nDiff - 2;
+					} else {
+						nDiff = nDiff - 1;
+					}
+					++nStep;
+				}
+			}
+			steps.add(nStep);
+		}
+
 		System.out.println(Collections.min(steps));
 	}
 }
-
 public class Solution {
     public static void main(String args[] ) throws Exception {
         Equal equal = new Equal();

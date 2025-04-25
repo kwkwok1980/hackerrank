@@ -7,13 +7,11 @@
 std::vector<int> climbingLeaderboard(std::vector<int> ranked, std::vector<int> player) {
     int R = static_cast<int>(ranked.size());
     std::vector<int> sorted{};
-    int last = 0;
     for (int i=0; i<R; ++i) {
         int value = ranked[i];
-        if (value != last) {
+        if (value != sorted.back()) {
             sorted.push_back(value);
         }
-        last = value;
     }
     int N = static_cast<int>(player.size());
     std::vector<int> results{};
